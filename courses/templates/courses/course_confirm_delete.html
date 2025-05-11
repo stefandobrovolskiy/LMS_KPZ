@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Видалити курс</h2>
+<p>Ви впевнені, що хочете видалити курс "{{ course.title }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Так, видалити</button>
+    <a href="{% url 'courses:course_detail' course.id %}">Скасувати</a>
+</form>
+{% endblock %} 

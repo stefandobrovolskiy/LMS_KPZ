@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('login-page');
+        });
+    </script>
+    <div class="container mt-5">
+        <div class="row justify-content-center align-items-start" style="min-height: 70vh;">
+            <div class="col-md-6 d-flex justify-content-center align-items-start" style="margin-top: -10vh; margin-bottom: auto;">
+                <div class="card login-card">
+                    <div class="card-header">
+                        <h2 class="text-center">Вхід</h2>
+                    </div>
+                    <div class="card-body">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="form-group mb-3 d-flex flex-column align-items-stretch">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ field.errors }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Увійти</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# <p>Ще не маєте акаунта? <a href="{% url 'users:register' %}">Зареєструватися</a></p> #}
+{% endblock %} 

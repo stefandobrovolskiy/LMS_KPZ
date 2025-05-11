@@ -1,0 +1,587 @@
+:root {
+    --bg-dark: #1c1c1e;
+    --bg-medium: #282a36;
+    --text-light: #f8f8f2;
+    --accent-primary: #8be9fd;
+    --accent-secondary: #ff79c6;
+    --accent-success: #50fa7b;
+    --border-dark: #444;
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    margin: 0;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.container {
+    width: 95%;
+    max-width: 1200px;
+    margin-top: 30px;
+    margin-bottom: 60px;
+}
+
+h1, h2, h3 {
+    color: var(--accent-primary);
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+p {
+    text-align: left;
+    color: #eee;
+}
+
+hr {
+    border-color: var(--border-dark);
+    margin: 30px 0;
+    opacity: 0.5;
+}
+
+.certificate {
+    background-color: var(--bg-medium);
+    border: 1px solid var(--border-dark);
+    padding: 60px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    width: 95%;
+    max-width: 900px;
+    border-radius: 8px;
+}
+
+.certificate h1 {
+    color: var(--text-light);
+    margin-bottom: 40px;
+    font-size: 2.5em;
+}
+
+.certificate .main-text {
+    font-size: 1.3em;
+    margin-bottom: 40px;
+    text-align: center;
+    color: #ddd;
+}
+
+.certificate .field {
+    margin-bottom: 20px;
+    color: var(--text-light);
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.certificate .bold {
+    font-weight: bold;
+    color: var(--accent-success);
+}
+
+.certificate .signature-block {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    color: var(--text-light);
+    text-align: left;
+    font-size: 1em;
+}
+
+.certificate .signature {
+    text-align: left;
+}
+
+.certificate .stamp {
+    text-align: right;
+    font-style: italic;
+    color: #6272a4;
+    opacity: 0.8;
+}
+
+.certificate .date {
+    text-align: center;
+    margin-top: 30px;
+    color: #aaa;
+    font-size: 0.9em;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1em;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    margin: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary, .btn.btn-primary, a.btn-primary, button.btn-primary {
+    background-color: var(--accent-primary);
+    color: #1a1a1a !important;
+}
+
+.btn-primary:hover {
+    background-color: #4dd0e1;
+    border-color: #4dd0e1;
+}
+
+.btn-success {
+    background-color: var(--accent-success);
+    color: var(--bg-dark);
+}
+
+.btn-success:hover {
+    background-color: #80e999;
+    border-color: #80e999;
+}
+
+.btn-secondary {
+    background-color: var(--bg-medium);
+    color: var(--text-light);
+    border-color: var(--accent-primary);
+}
+
+.btn-secondary:hover {
+    background-color: #44475a;
+    border-color: #8be9fd;
+}
+
+.btn-link {
+    background: none;
+    color: var(--accent-secondary);
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-link:hover {
+    color: #f06292;
+}
+
+.row-cols-md-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    width: 95%;
+    max-width: 1200px;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: var(--bg-medium);
+    border: 1px solid var(--border-dark);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-body {
+    padding: 25px;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.card-title a {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+.card-title a:hover {
+    text-decoration: underline;
+}
+
+.card-text {
+    color: #eee;
+    margin-bottom: 15px;
+}
+
+.card-footer {
+    background-color: #3b3d48;
+    color: #aaa;
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid var(--border-dark);
+    font-size: 0.9em;
+}
+
+.announcements-widget, .events-widget, .new-courses-widget {
+    background-color: var(--bg-medium);
+    border: 1px solid var(--border-dark);
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 30px;
+    width: 95%;
+    max-width: 800px;
+}
+
+.announcements-widget h2, .events-widget h2, .new-courses-widget h2 {
+    color: var(--accent-secondary);
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.announcements-widget .card, .events-widget .card, .new-courses-widget .card {
+    background-color: #3b3d48;
+    border: 1px solid var(--border-dark);
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.announcements-widget .card-title, .events-widget .card-title, .new-courses-widget .card-title {
+    color: var(--text-light);
+    margin-bottom: 8px;
+    text-align: left;
+    font-weight: 500;
+}
+
+.announcements-widget .card-subtitle, .events-widget .card-subtitle, .new-courses-widget .card-subtitle {
+    color: #6272a4;
+    font-size: 0.95em;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.announcements-widget .card-text, .events-widget .card-text, .new-courses-widget .card-text {
+    color: #eee;
+    text-align: left;
+}
+
+body.certificate-page {
+    align-items: center;
+    justify-content: center;
+}
+
+.certificate-page .certificate {
+    width: 95%;
+    max-width: 900px;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 30px 0 20px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    color: var(--accent-primary);
+    background: var(--bg-medium);
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    border: 1px solid var(--border-dark);
+    letter-spacing: 0.5px;
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+    background: var(--accent-primary);
+    color: var(--bg-dark);
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(139,233,253,0.15);
+}
+
+/* Текст на темному фоні */
+body, .certificate, nav, .card-footer, .announcements-widget, .events-widget, .new-courses-widget {
+    color: #fff;
+}
+
+/* Текст на світлому фоні */
+.card, .alert, .bg-white, .btn-light, .form-control {
+    color: #222 !important;
+    background-color: #fff !important;
+}
+
+.card-title, .card-text, .alert, .alert * {
+    color: #222 !important;
+}
+
+.certificate .main-text, .certificate .field {
+    color: #fff !important;
+    background: none !important;
+}
+
+.btn, .btn-primary, .btn-success, .btn-secondary {
+    color: #fff !important;
+}
+
+.btn-light {
+    color: #222 !important;
+    background-color: #f8f9fa !important;
+    border: 1px solid #ccc !important;
+}
+
+nav ul li a {
+    color: var(--accent-primary) !important;
+}
+
+/* Темні картки, акордеони, алерти, панелі */
+.card, .alert, .accordion-item, .accordion-header, .accordion-body, .bg-white, .module-panel, .panel, .panel-default {
+    background-color: #23232b !important;
+    color: #fff !important;
+    border: 1px solid #333 !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+.card-title, .accordion-header, .panel-heading, .module-title {
+    color: var(--accent-secondary) !important;
+    font-weight: 700;
+    font-size: 1.2em;
+    background: none !important;
+}
+
+.card-footer, .panel-footer {
+    background-color: #1c1c1e !important;
+    color: #bbb !important;
+    border-top: 1px solid #333 !important;
+}
+
+.alert-success, .alert-info, .alert-warning, .alert-danger {
+    background-color: #23232b !important;
+    color: #50fa7b !important;
+    border-left: 5px solid var(--accent-success) !important;
+}
+
+.alert-info {
+    color: #8be9fd !important;
+    border-left: 5px solid var(--accent-primary) !important;
+}
+
+.alert-warning {
+    color: #ffb86c !important;
+    border-left: 5px solid #ffb86c !important;
+}
+
+.alert-danger {
+    color: #ff5555 !important;
+    border-left: 5px solid #ff5555 !important;
+}
+
+.btn, .btn-primary, .btn-success, .btn-secondary {
+    color: #fff !important;
+    border: none;
+}
+
+.accordion-button, .accordion-button:not(.collapsed) {
+    background-color: #282a36 !important;
+    color: var(--accent-primary) !important;
+    font-weight: 600;
+    border: none;
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 2px var(--accent-primary) !important;
+}
+
+.accordion-item {
+    border-radius: 8px !important;
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+
+/* Контрастність для світлих блоків */
+.card, .card-body, .accordion-body, .bg-white, .form-control, .alert-light {
+    color: #222 !important;
+    background-color: #fff !important;
+}
+
+.alert, .alert-info, .alert-success, .alert-warning, .alert-danger {
+    color: #222 !important;
+    background-color: #f8f9fa !important;
+    border: 1px solid #ccc !important;
+}
+
+/* Темний стиль для темних блоків */
+.card:not(.bg-white):not(.alert-light), .accordion-item, .accordion-header, .panel, .panel-default, .announcements-widget, .events-widget, .new-courses-widget {
+    background-color: #23232b !important;
+    color: #fff !important;
+    border: 1px solid #333 !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+.card-title, .accordion-header, .panel-heading, .module-title {
+    color: var(--accent-secondary) !important;
+    font-weight: 700;
+    font-size: 1.2em;
+    background: none !important;
+}
+
+.card-footer, .panel-footer {
+    background-color: #1c1c1e !important;
+    color: #bbb !important;
+    border-top: 1px solid #333 !important;
+}
+
+.btn, .btn-primary, .btn-success, .btn-secondary {
+    color: #fff !important;
+    border: none;
+}
+
+.accordion-button, .accordion-button:not(.collapsed) {
+    background-color: #282a36 !important;
+    color: var(--accent-primary) !important;
+    font-weight: 600;
+    border: none;
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 2px var(--accent-primary) !important;
+}
+
+.accordion-item {
+    border-radius: 8px !important;
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+
+/* Додатково для .alert-success, .alert-info, .alert-warning, .alert-danger */
+.alert-success {
+    color: #155724 !important;
+    background-color: #d4edda !important;
+    border-color: #c3e6cb !important;
+}
+
+.alert-info {
+    color: #0c5460 !important;
+    background-color: #d1ecf1 !important;
+    border-color: #bee5eb !important;
+}
+
+.alert-warning {
+    color: #856404 !important;
+    background-color: #fff3cd !important;
+    border-color: #ffeeba !important;
+}
+
+.alert-danger {
+    color: #721c24 !important;
+    background-color: #f8d7da !important;
+    border-color: #f5c6cb !important;
+}
+
+.card-body, .accordion-body, .bg-white, .form-control, .alert-light {
+    background-color: #23232b !important;
+    color: #fff !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    border: 1px solid #333 !important;
+    padding: 20px !important;
+}
+
+.card-body input, .card-body textarea, .accordion-body input, .accordion-body textarea, .form-control {
+    background-color: #282a36 !important;
+    color: #fff !important;
+    border: 1px solid #444 !important;
+    border-radius: 6px !important;
+}
+
+.card-body label, .accordion-body label {
+    color: #fff !important;
+}
+
+.card, .card-body, .card-title, .card-text, .card-footer, .card-subtitle, .text-muted {
+    color: #fff !important;
+}
+
+.card-footer small, .card-text small, .card-subtitle {
+    color: #bbb !important;
+}
+
+.card.login-card {
+    min-width: 400px;
+    max-width: 500px;
+    width: 100%;
+    margin: 60px auto;
+    border-radius: 18px !important;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.28);
+    background: #23232b !important;
+    border: 2px solid #333 !important;
+}
+
+.card.login-card .card-body, .card.login-form .card-body, .login-card .card-body, .login-form .card-body {
+    padding: 32px 28px !important;
+}
+
+.card.login-card h2, .card.login-form h2, .login-card h2, .login-form h2 {
+    font-size: 2.2em;
+    color: var(--accent-primary);
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.card.login-card label, .card.login-form label, .login-card label, .login-form label {
+    color: #fff !important;
+    font-weight: 500;
+}
+
+.card.login-card .form-control, .card.login-form .form-control, .login-card .form-control, .login-form .form-control {
+    background: #282a36 !important;
+    color: #fff !important;
+    border: 1.5px solid #444 !important;
+    border-radius: 7px !important;
+    margin-bottom: 18px;
+    font-size: 1.1em;
+}
+
+.card.login-card .btn, .card.login-form .btn, .login-card .btn, .login-form .btn {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1.1em;
+    border-radius: 7px;
+    margin-top: 10px;
+}
+
+body.login-page, .login-page .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+} 

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Огляд курсу</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for course in courses %}
+        <div class="col">
+            <div class="card h-100">
+                {% if course.image %}
+                    <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                {% else %}
+                    <div class="bg-secondary text-white text-center p-3">Немає зображення</div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'courses:course_detail' course.slug %}">{{ course.title }}</a></h5>
+                    <p class="card-text">{{ course.description|truncatechars:100 }}</p>
+                    <p class="card-text"><small class="text-muted">Викладач: {{ course.teacher.get_full_name }}</small></p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Оновлено {{ course.updated_at|date:"d.m.Y" }}</small>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>Поки що немає доступних курсів.</p>
+    {% endfor %}
+</div>
+<hr>
+<h2>Останні оголошення</h2>
+<div class="row">
+    <div class="col-md-12">
+        {% for announcement in announcements %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ announcement.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ announcement.author }} - {{ announcement.publication_date }}</h6>
+                    <p class="card-text">{{ announcement.text }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p>Поки що немає оголошень.</p>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+<h2>Нові курси</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for new_course in new_courses %}
+        <div class="col">
+            <div class="card h-100">
+                {% if new_course.image %}
+                    <img src="{{ new_course.image.url }}" class="card-img-top" alt="{{ new_course.title }}">
+                {% else %}
+                    <div class="bg-secondary text-white text-center p-3">Немає зображення</div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'courses:course_detail' new_course.slug %}">{{ new_course.title }}</a></h5>
+                    <p class="card-text">{{ new_course.description|truncatechars:100 }}</p>
+                    <p class="card-text"><small class="text-muted">Додано {{ new_course.created_at|date:"d.m.Y" }}</small></p>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>Поки що немає нових курсів.</p>
+    {% endfor %}
+</div>
+{% endblock %} 

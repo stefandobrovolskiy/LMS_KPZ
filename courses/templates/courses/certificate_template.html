@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>ДОВІДКА</title>
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; text-align: center; margin-top: 50px; }
+        .certificate { border: 2px solid #000; padding: 30px; width: 80%; margin: 0 auto; }
+        h2, h3, p { margin: 10px 0; }
+        .bold { font-weight: bold; }
+        .signature-line { margin-top: 40px; text-align: left; margin-left: 50px; }
+        .date { text-align: right; margin-right: 50px; }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <h2>ДОВІДКА</h2>
+        <br>
+        <p>про проходження навчального курсу</p>
+        <br>
+        <p>Цим підтверджується, що</p>
+        <br>
+        <h3 class="bold">{{ student_full_name }}</h3>
+        <br>
+        <p>студент спеціальності <b>{{ specialty }}</b></p>
+        <p><b>{{ faculty }}</b></p>
+        <p><b>{{ university }}</b>,</p>
+        <br>
+        <p>успішно завершив вивчення навчальної дисципліни</p>
+        <br>
+        <h3 class="bold">«{{ course_full_name }}»</h3>
+        <br>
+        <p>Форма підсумкового контролю — залік.</p>
+        <br>
+        <p>Студент отримав підсумкову оцінку: <span class="bold">{{ average_grade }}</span>.</p>
+        <br>
+        <p class="date">Дата видачі довідки: {{ current_date }}</p>
+        <br>
+        <div class="signature-line">
+            <p>Підпис викладача: _________________________</p>
+            <p>ПІБ викладача: {{ instructor_full_name }}</p>
+            <p>Посада: _________________________</p>
+            <p style="text-align:right;">Печатка ЗВО</p>
+        </div>
+    </div>
+</body>
+</html> 

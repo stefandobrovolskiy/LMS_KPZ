@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="mb-3">
+        <a href="{% url 'courses:course_list' %}" class="btn btn-outline-primary">Курси</a>
+    </div>
+    <h2>Вітаємо, {{ request.user.get_full_name }}!</h2>
+
+    {% if request.user.is_authenticated and request.user.role == 'teacher' %}
+        <h3>Ваші курси:</h3>
+        {% if courses %}
+            <ul>
+                {% for course in courses %}
+                    <li>
+                        <strong>{{ course.title }}</strong>
+                        <ul>
+                            <li><a href="{% url 'courses:course_detail' slug=course.slug %}">Переглянути курс</a></li>
+                            <li><a href="{% url 'courses:course_edit' slug=course.slug %}">Редагувати курс (заголовок, опис, контакти, модулі)</a></li>
+                            <li><a href="{% url 'courses:module_create' course_slug=course.slug %}">Додати модуль</a></li>
+                            <li><a href="{% url 'courses:course_detail' slug=course.slug %}#lectures">Керування лекціями</a></li>
+                            <li><a href="{% url 'courses:course_detail' slug=course.slug %}#assignments">Керування завданнями</a></li>
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Ви ще не викладаєте жодного курсу.</p>
+        {% endif %}
+    {% else %}
+        <p>Будь ласка, увійдіть, щоб переглянути ваші курси.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Вітаємо на платформі LMS!</h2>
+  {% if user.is_authenticated %}
+    <p>Ви увійшли як {{ user.username }} ({{ user.get_role_display }}).</p>
+  {% else %}
+    <p>Будь ласка, увійдіть або зареєструйтеся.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'courses:course_detail' lesson.module.course.slug %}">{{ lesson.module.course.title }}</a></li>
+            <li class="breadcrumb-item"><a href="#">{{ lesson.module.title }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ lesson.title }}</li>
+        </ol>
+    </nav>
+
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">{{ lesson.title }}</h1>
+            
+            {% if lesson.content %}
+            <div class="card-text mb-4">
+                {{ lesson.content|linebreaks }}
+            </div>
+            {% endif %}
+
+            {% if lesson.lecture_url %}
+            <div class="mb-4">
+                <h4>Лекція</h4>
+                <a href="{{ lesson.lecture_url }}" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Відкрити лекцію
+                </a>
+            </div>
+            {% endif %}
+
+            {% if lesson.video_url %}
+            <div class="mb-4">
+                <h4>Відео</h4>
+                <div class="ratio ratio-16x9">
+                    <iframe src="{{ lesson.video_url }}" allowfullscreen></iframe>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if lesson.lecture_files %}
+            <div class="mb-4">
+                <h4>Матеріали</h4>
+                <a href="{{ lesson.lecture_files.url }}" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-file-download"></i> Завантажити матеріали
+                </a>
+            </div>
+            {% endif %}
+
+            {% if lesson.assignments.all %}
+            <div class="mb-4">
+                <h4>Завдання до уроку</h4>
+                {% for assignment in lesson.assignments.all %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5>{{ assignment.title }}</h5>
+                        <p>{{ assignment.description }}</p>
+                        <p class="text-muted">Термін здачі: {{ assignment.due_date|date:"d.m.Y H:i" }}</p>
+                        {% if user.role == 'student' %}
+                            {% with submission=assignment.submissions.filter(student=user).first %}
+                                {% if submission %}
+                                    <div class="alert alert-info">
+                                        <p>Ваша робота здана:
+                                            {% if submission.submission_url %}
+                                                <a href="{{ submission.submission_url }}" target="_blank">Переглянути посилання</a>
+                                            {% endif %}
+                                            {% if submission.upload_file %}
+                                                <a href="{{ submission.upload_file.url }}" target="_blank">Завантажити файл</a>
+                                            {% endif %}
+                                        </p>
+                                        <p class="text-muted">Останнє оновлення: {{ submission.submitted_at|date:"d.m.Y H:i" }}</p>
+                                    </div>
+                                {% endif %}
+                                <form method="post" enctype="multipart/form-data" action="{% url 'assignments:submit_assignment' assignment_id=assignment.id %}">
+                                    {% csrf_token %}
+                                    <div class="mb-2">
+                                        <label for="submission_url_{{ assignment.id }}">Посилання на роботу:</label>
+                                        <input type="url" name="submission_url" id="submission_url_{{ assignment.id }}" class="form-control" value="{% if submission %}{{ submission.submission_url }}{% endif %}">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="upload_file_{{ assignment.id }}">Завантажити файл:</label>
+                                        <input type="file" name="upload_file" id="upload_file_{{ assignment.id }}" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-success">{% if submission %}Оновити роботу{% else %}Здати роботу{% endif %}</button>
+                                </form>
+                            {% endwith %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <p>До цього уроку немає завдань.</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

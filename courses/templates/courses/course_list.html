@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Список курсів</h2>
+<ul>
+    {% for course in courses %}
+        <li><a href="{% url 'courses:course_detail' course.id %}">{{ course.title }}</a></li>
+    {% empty %}
+        <li>Курсів поки немає.</li>
+    {% endfor %}
+</ul>
+{% endblock %} 

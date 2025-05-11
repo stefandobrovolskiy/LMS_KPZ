@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Довідка про проходження навчального курсу</title>
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; background: #f5f5f5; }
+        .certificate {
+            width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border: 2px solid #333;
+            padding: 40px 60px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 { text-align: center; font-size: 2.2em; margin-bottom: 30px; }
+        .main-text { font-size: 1.2em; margin-bottom: 30px; }
+        .field { margin-bottom: 10px; }
+        .signature-block { margin-top: 40px; display: flex; justify-content: space-between; }
+        .signature { text-align: left; }
+        .stamp { text-align: right; font-style: italic; color: #888; }
+        .bold { font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="certificate">
+    <h1>ДОВІДКА<br>про проходження навчального курсу</h1>
+    <div class="main-text">
+        Цим підтверджується, що<br>
+        <span class="bold">{{ student_name }}</span>,<br>
+        студент спеціальності <span class="bold">{{ specialty|default:"[назва спеціальності]" }}</span><br>
+        <span class="bold">{{ faculty|default:"[назва факультету/інституту]" }}</span><br>
+        <span class="bold">{{ university|default:"[назва закладу вищої освіти]" }}</span>,<br>
+        успішно завершив вивчення навчальної дисципліни<br>
+        «<span class="bold">{{ course_title }}</span>».
+    </div>
+    <div class="field">Форма підсумкового контролю — залік.</div>
+    <div class="field">Студент отримав підсумкову оцінку: <span class="bold">{{ average_grade }}</span>.</div>
+    <div class="field">Дата видачі довідки: <span class="bold">{{ date }}</span></div>
+    <div class="signature-block">
+        <div class="signature">
+            Підпис викладача: _________________________<br>
+            ПІБ викладача: <span class="bold">{{ instructor_name }}</span><br>
+            Посада: _________________________
+        </div>
+        <div class="stamp">
+            Печатка ЗВО
+        </div>
+    </div>
+</div>
+</body>
+</html>

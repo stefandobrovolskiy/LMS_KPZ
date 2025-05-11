@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load courses_extras %}
+
+{% block content %}
+<h1>{{ course.title }}</h1>
+<p class="lead">{{ course.description }}</p>
+<p>Викладач: {{ course.teacher.get_full_name }}</p>
+
+{% if has_certificate %}
+<div class="alert alert-success">
+    <h4>Вітаємо! Ви успішно завершили курс!</h4>
+    <p>Ви можете завантажити свій сертифікат:</p>
+    <a href="{% url 'courses:download_certificate' course.slug %}" class="btn btn-primary">
+        <i class="fas fa-download"></i> Завантажити сертифікат
+    </a>
+</div>
+{% elif average_grade is not None and average_grade <= 3 %}
+    <p class="text-warning">Ваш середній бал {{ average_grade|floatformat:2 }} поки що недостатній для отримання сертифіката.</p>
+{% endif %}
+
+{% if user.role in 'teacher,admin' %}
+    <div class="teacher-actions">
+        <a href="{% url 'courses:module_create' course_slug=course.slug %}" class="btn btn-primary">Додати модуль</a>
+    </div>
+{% endif %}
+
+{% for module in modules %}
+    <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">
+                <button class="btn btn-link text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#module{{ module.id }}" aria-expanded="false" aria-controls="module{{ module.id }}">
+                    <i class="bi bi-chevron-down"></i> {{ module.title }}
+                </button>
+            </h3>
+        </div>
+        <div class="collapse show" id="module{{ module.id }}">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for lesson in module.lessons.all|dictsort:"order" %}
+                        <li class="list-group-item bg-dark text-white">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="mb-1">
+                                        <button class="btn btn-link text-decoration-none {% if submitted_assignments and lesson.id in submitted_assignments %}text-success{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#lesson{{ lesson.id }}" aria-expanded="false" aria-controls="lesson{{ lesson.id }}">
+                                            <i class="bi bi-chevron-down"></i> {{ lesson.title }}
+                                            {% if submitted_assignments and lesson.id in submitted_assignments %}
+                                                <span class="badge bg-success ms-2">Здано</span>
+                                            {% endif %}
+                                        </button>
+                                    </h5>
+                                    <div class="collapse" id="lesson{{ lesson.id }}">
+                                        {% if lesson.content %}
+                                            <p class="mb-1">{{ lesson.content }}</p>
+                                        {% endif %}
+                                        {% if lesson.lecture_url %}
+                                            <p class="mb-1"><a href="{{ lesson.lecture_url }}" target="_blank" class="btn btn-sm btn-outline-info">Перейти до лекції (URL)</a></p>
+                                        {% endif %}
+                                        {% if lesson.lecture_files %}
+                                            <p class="mb-1"><a href="{{ lesson.lecture_files.url }}" target="_blank" class="btn btn-sm btn-outline-info">Переглянути лекцію (файл)</a></p>
+                                        {% endif %}
+                                        {% if lesson.assignment_files %}
+                                            <p class="mb-1"><a href="{{ lesson.assignment_files.url }}" target="_blank" class="btn btn-sm btn-outline-info">Завантажити файл завдання</a></p>
+                                        {% endif %}
+                                        {% if lesson.submission_url_field_name or lesson.assignment_file_field_name %}
+                                            <div>
+                                                <h5>{{ lesson.submission_url_field_name|default:lesson.assignment_file_field_name|default:"Здача роботи" }}</h5>
+                                                {% if submitted_assignments and lesson.id in submitted_assignments %}
+                                                    {% with submission=submissions_by_lesson|get_item:lesson.id %}
+                                                        <p class="text-muted">Робота здана: {{ submission.submitted_at }}</p>
+                                                        {% if submission.grade is not None %}
+                                                            <p class="text-info">Оцінка: {{ submission.grade }}</p>
+                                                        {% endif %}
+                                                        {% if submission.feedback %}
+                                                            <p class="text-warning">Коментар викладача: {{ submission.feedback }}</p>
+                                                        {% endif %}
+                                                    {% endwith %}
+                                                {% else %}
+                                                    <form method="post" enctype="multipart/form-data" action="{% url 'assignments:submit_assignment_by_lesson' lesson_id=lesson.id %}">
+                                                        {% csrf_token %}
+                                                        {% if lesson.submission_url_field_name %}
+                                                            <div class="mb-3">
+                                                                <label for="submission_url_{{ lesson.id }}" class="form-label">Посилання на роботу:</label>
+                                                                <input type="url" name="submission_url" class="form-control" id="submission_url_{{ lesson.id }}">
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if lesson.assignment_file_field_name %}
+                                                            <div class="mb-3">
+                                                                <label for="upload_file_{{ lesson.id }}" class="form-label">Завантажити файл:</label>
+                                                                <input type="file" name="upload_file" class="form-control" id="upload_file_{{ lesson.id }}">
+                                                            </div>
+                                                        {% endif %}
+                                                        <button type="submit" class="btn btn-primary btn-sm">Здати</button>
+                                                    </form>
+                                                {% endif %}
+                                            </div>
+                                        {% else %}
+                                            <p class="text-info">Для цього уроку немає завдань для здачі.</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item bg-dark text-white">У цьому модулі ще немає уроків.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <p>У цьому курсі ще немає модулів.</p>
+{% endfor %}
+{% endblock %} 
